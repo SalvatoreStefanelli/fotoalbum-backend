@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('title', 100);
             $table->text('description', 1000)->nullable();
-            $table->string('upload_image', 50)->nullable();
+            $table->string('upload_image', 255)->nullable();
             $table->string('category', 50);
-            $table->string('in_evidenza', 50);
+            $table->string('featured', 20);
             $table->timestamps();
         });
     }
