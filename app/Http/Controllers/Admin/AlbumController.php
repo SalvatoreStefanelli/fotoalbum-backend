@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\StoreAlbumRequest;
 use App\Http\Requests\UpdateAlbumRequest;
 use App\Models\Album;
+use App\Http\Controllers\Controller;
 
 class AlbumController extends Controller
 {
@@ -13,7 +14,9 @@ class AlbumController extends Controller
      */
     public function index()
     {
-        //
+        // dd(Album::all());
+
+        return view('admin.album.index', ['album' => Album::orderByDesc('id')->paginate(6)]);
     }
 
     /**
