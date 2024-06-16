@@ -28,6 +28,7 @@ Route::get('/album', [AlbumController::class, 'index'])->name('album');
 Route::get('/album/create', [AlbumController::class, 'create'])->name('create');
 Route::post('/album/store', [AlbumController::class, 'store'])->name('store');
 Route::get('/album/show', [AlbumController::class, 'show'])->name('album.show');
+Route::get('/album/edit', [AlbumController::class, 'edit'])->name('album.edit');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

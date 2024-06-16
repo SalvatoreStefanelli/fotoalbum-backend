@@ -24,7 +24,7 @@ class AlbumSeeder extends Seeder
             $album->description = $faker->paragraphs(5, true);
             $album->upload_image = $faker->imageUrl(640, 400, 'Albums', true, $album->name, true, 'jpg');
             $album->category = $faker->randomElement($categories);
-            $album->featured = $faker->boolean(true);
+            $album->featured = $faker->boolean();
             $album->save();
         }
     }

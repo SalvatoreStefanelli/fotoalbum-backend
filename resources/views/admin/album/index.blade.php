@@ -56,8 +56,11 @@
                             <td class="p-5">{{$photo->category}}</td>
                             <td class="p-5">{{$photo->featured}}</td>
                             <td class="p-5">
-                                <a class="btn btn-primary" href="{{route('show', $photo)}}">
+                                <a class="btn btn-primary" href="{{route('album.show', $photo)}}">
                                     View
+                                </a>
+                                <a class="btn btn-secondary" href="{{route('album.edit', $photo)}}">
+                                    Edit
                                 </a>
                             </td>
                         </tr>

@@ -50,7 +50,7 @@ class AlbumController extends Controller
      */
     public function show(Album $album)
     {
-        //
+        return view('admin.album.show', compact('album'));
     }
 
     /**
