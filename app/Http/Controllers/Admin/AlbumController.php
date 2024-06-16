@@ -58,7 +58,7 @@ class AlbumController extends Controller
      */
     public function edit(Album $album)
     {
-        //
+        return view('admin.album.edit', compact('album'));
     }
 
     /**
@@ -66,7 +66,23 @@ class AlbumController extends Controller
      */
     public function update(UpdateAlbumRequest $request, Album $album)
     {
-        //
+        // dd($request->all());
+
+        $validated = $request->validated();
+
+        if($request->has('upload_image')){
+            if ($album->upload_image) {
+                Storage::delete($album->upload_image);
+            }
+
+            $image_path = Storage::put('uploads', $request->upload_image);
+            $validated['upload_image'] = $image_path;
+        }
+        // dd($validated);
+
+        $album->update($validated);
+        return to_route('album')->with('message', 'Album update!');
+
     }
 
     /**

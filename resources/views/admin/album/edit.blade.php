@@ -19,14 +19,15 @@
     <body>
         <header class="py-3 bg-secondary">
                 <div class="container">
-                    <h1>New Album</h1>
+                    <h1>Edit {{$album->title}} </h1>
                 </div>
             </header>
 
             <div class="container mt-5">
               @include('partials.errors')
-                <form action="{{'store'}}" method="post" enctype="multipart/form-data">
+                <form action="{{'update', true}}" method="post" enctype="multipart/form-data">
                 @csrf
+                @method('PUT')
                     <div class="mb-3">
                         <label for="tile" class="form-label">Title</label>
                         <input
@@ -36,7 +37,7 @@
                             id="title"
                             aria-describedby="titleHelper"
                             placeholder="type title album"
-                            value="{{old('title')}}"
+                            value="{{old('title', $album->title)}}"
                         />
                         <small id="titleHelper" class="form-text text-muted">Type a title to your album</small>
                         @error('title')
@@ -44,19 +45,29 @@
                         @enderror
                     </div>
     
-                    <div class="mb-3">
-                        <label for="upload_image" class="form-label">Choose file</label>
-                        <input
-                            type="file"
-                            class="form-control"
-                            name="upload_image"
-                            id="upload_image"
-                            placeholder=""
-                            aria-describedby="uploadImageHelper"/>
-                        <div id="uploadImageHelper" class="form-text">Upload a cover image</div>
-                        @error('upload_image')
-                            <div class="text-danger">{{$message}}</div>
-                        @enderror
+                    <div class="mb-3 d-flex gap-4">
+
+                        @if (Str::startsWith($album->upload_image, 'http://'))
+                        <img loading="lazy" width="120" src="{{$album->upload_image}}" alt="">
+                        @else
+                        <img loading="lazy" width="120" src="{{asset('storage/' . $album->upload_image)}}" alt="">
+                        @endif
+                        
+                        <div>
+
+                            <label for="upload_image" class="form-label">Choose file</label>
+                            <input
+                                type="file"
+                                class="form-control"
+                                name="upload_image"
+                                id="upload_image"
+                                placeholder=""
+                                aria-describedby="uploadImageHelper"/>
+                            <div id="uploadImageHelper" class="form-text">Upload a cover image</div>
+                            @error('upload_image')
+                                <div class="text-danger">{{$message}}</div>
+                            @enderror
+                        </div>
                     </div>               
     
                     <div class="mb-3">
@@ -68,7 +79,7 @@
                             id="category"
                             aria-describedby="categoryHelper"
                             placeholder="type a category album"
-                            value="{{old('category')}}"
+                            value="{{old('category', $album->category)}}"
                         />
                         <small id="categoryHelper" class="form-text text-muted">Type a category to your album</small>
                         @error('category')
@@ -85,7 +96,7 @@
                             id="featured"
                             aria-describedby="featuredHelper"
                             placeholder="write if is featured or not"
-                            value="{{old('featured')}}"
+                            value="{{old('featured', $album->featured)}}"
                         />
                         <small id="featuredHelper" class="form-text text-muted">Is it featured?</small>
                         @error('featured')
@@ -95,14 +106,14 @@
 
                     <div class="mb-3">
                         <label for="description" class="form-label">Description</label>
-                        <textarea class="form-control" name="description" id="description" rows="3"></textarea>
+                        <textarea class="form-control" name="description" id="description" rows="3">{{old('description', $album->description)}}</textarea>
                         @error('description')
                             <div class="text-danger">{{$message}}</div>
                         @enderror
                     </div>
 
                     <button type="submit" class="btn btn-primary">
-                        Publish
+                        Update
                     </button>
                     
                     
