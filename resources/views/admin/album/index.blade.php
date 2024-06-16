@@ -10,6 +10,7 @@
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -35,8 +36,8 @@
                             <th class="p-2">ID</th>
                             <th class="p-2">Title</th>
                             <th class="p-2">Upload Image</th>
-                            <th class="p-5">Category</th>
-                            <th class="p-5">Featured</th>
+                            <th class="p-2">Category</th>
+                            <th class="p-2">Featured</th>
                         </tr>
                     </thead>
                     <tbody class="table-group-divider">
@@ -45,10 +46,20 @@
                         <tr class="table-dark">
                             <td class="p-5" scope="row">{{$photo->id}}</td>
                             <td class="p-5">{{$photo->title}}</td>
-                            <td class="p-5"> <img width="120" src="{{$photo->upload_image}}" alt=""></td>
+                            <td class="p-5">
+                                @if (Str::startsWith($photo->upload_image, 'http://'))
+                                <img loading="lazy" width="120" src="{{$photo->upload_image}}" alt="">
+                                @else
+                                <img loading="lazy" width="120" src="{{asset('storage/' . $photo->upload_image)}}" alt="">
+                                @endif
+                            </td>
                             <td class="p-5">{{$photo->category}}</td>
                             <td class="p-5">{{$photo->featured}}</td>
-                            <td class="p-5">VIEW/EDIT/DELETE</td>
+                            <td class="p-5">
+                                <a class="btn btn-primary" href="{{route('show', $photo)}}">
+                                    View
+                                </a>
+                            </td>
                         </tr>
 
                         @empty

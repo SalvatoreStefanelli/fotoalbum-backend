@@ -6,6 +6,7 @@ use App\Http\Requests\StoreAlbumRequest;
 use App\Http\Requests\UpdateAlbumRequest;
 use App\Models\Album;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 
 class AlbumController extends Controller
 {
@@ -24,7 +25,7 @@ class AlbumController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.album.create');
     }
 
     /**
@@ -32,7 +33,16 @@ class AlbumController extends Controller
      */
     public function store(StoreAlbumRequest $request)
     {
-        //
+        // dd($request->all());
+
+        $validated = $request->validated();
+
+        $validated['$upload_image'] = Storage::put('upload', $request->upload_image);
+        // dd($validated);
+
+        Album::create($validated);
+
+        return to_route('album')->with('message', 'Album created!');
     }
 
     /**
