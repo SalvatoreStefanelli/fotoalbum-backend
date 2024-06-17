@@ -16,9 +16,9 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="font-sans antialiased">
-
+    @include('layouts.navigation-bar')
         <header class="py-3 bg-secondary">
-            <div class="container">
+            <div class="container d-flex justify-content-center align-items-center">
                 <h1>Album</h1>
             </div>
         </header>
@@ -63,6 +63,8 @@
                                 <a class="btn btn-secondary" href="{{route('album.edit', $photo)}}">
                                     Edit
                                 </a>
+
+                                @include('admin.album.partials.delete-modal')
                             </td>
                         </tr>
 

@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateAlbumRequest;
 use App\Models\Album;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class AlbumController extends Controller
 {
@@ -90,6 +91,12 @@ class AlbumController extends Controller
      */
     public function destroy(Album $album)
     {
-        //
+        if($album->upload_image && !Str::startsWith($album->upload_image, 'htpps://')) {
+
+            Storage::delete($album->upload_image);
+        }
+        $album->delete();
+        return to_route('album.index')->with('message', 'Album deleted!');
+
     }
 }

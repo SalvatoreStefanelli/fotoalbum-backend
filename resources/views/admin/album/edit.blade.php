@@ -17,6 +17,7 @@
     </head>
 
     <body>
+    @include('layouts.navigation-bar')
         <header class="py-3 bg-secondary">
                 <div class="container">
                     <h1>Edit {{$album->title}} </h1>

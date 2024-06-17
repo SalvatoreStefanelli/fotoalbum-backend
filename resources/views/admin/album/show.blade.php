@@ -17,6 +17,7 @@
     </head>
 
     <body>
+    @include('layouts.navigation-bar')
         <header class="py-3 bg-secondary">
                     <div class="container d-flex align-items-center justify-content-between">
                         <h1>{{$album->title}}</h1>
