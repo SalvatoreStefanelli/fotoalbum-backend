@@ -22,7 +22,7 @@ class AlbumSeeder extends Seeder
             $album = new Album();
             $album->title = $faker->words(4, true);
             $album->description = $faker->paragraphs(5, true);
-            $album->upload_image = $faker->imageUrl(640, 400, 'Albums', true, $album->name, true, 'jpg');
+            $album->upload_image = $faker->imageUrl(640, 400, 'Albums', true, $album->title, true, 'jpg');
             $album->category = $faker->randomElement($categories);
             $album->featured = $faker->boolean();
             $album->save();

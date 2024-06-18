@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AlbumController;
+use App\Model\Album;
 
 
 /*
@@ -18,6 +19,10 @@ use App\Http\Controllers\Admin\AlbumController;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::get('/album', function () {
+    return view('guests.album.index', ['album' => Album::orderByDesc('id')->paginate(6)])->name('guests.album.index');
 });
 
 Route::get('/dashboard', function () {

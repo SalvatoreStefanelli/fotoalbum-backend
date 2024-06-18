@@ -71,18 +71,21 @@ class AlbumController extends Controller
 
         $validated = $request->validated();
 
-        if($request->has('upload_image')){
+        if($request->hasFile('upload_image')){
             if ($album->upload_image) {
                 Storage::delete($album->upload_image);
             }
 
-            $image_path = Storage::put('uploads', $request->upload_image);
+            $image_path = $request->file('upload_image')->store('upload', 'public');
+
+            // $image_path = Storage::put('storage/upload', $request->upload_image);
             $validated['upload_image'] = $image_path;
         }
         // dd($validated);
 
         $album->update($validated);
-        return to_route('album')->with('message', 'Album update!');
+        return redirect()->route('album')->with('message', 'Album updated!');
+        // return to_route('album')->with('message', 'Album update!');
 
     }
 

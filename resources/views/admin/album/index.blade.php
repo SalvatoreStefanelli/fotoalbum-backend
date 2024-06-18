@@ -51,7 +51,7 @@
                                 @if (Str::startsWith($photo->upload_image, 'http://'))
                                 <img loading="lazy" width="120" src="{{$photo->upload_image}}" alt="">
                                 @else
-                                <img loading="lazy" width="120" src="{{asset('storage/' . $photo->upload_image)}}" alt="">
+                                <img loading="lazy" width="120" src="{{asset('storage/upload' . $photo->upload_image)}}" alt="">
                                 @endif
                             </td>
                             <td class="p-5">{{$photo->category}}</td>
